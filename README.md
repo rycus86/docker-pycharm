@@ -13,6 +13,8 @@ docker run --rm \
 rycus86/pycharm:latest
 ```
 
+Docker Hub Page: https://hub.docker.com/r/rycus86/pycharm/
+
 ### Notes
 
 The IDE will have access to Python 2 and 3 both and to Git as well.
