@@ -1,5 +1,7 @@
 FROM debian
 
+LABEL maintainer "Viktor Adam <rycus86@gmail.com>"
+
 RUN apt-get update && apt-get install --no-install-recommends -y \
   python python-dev python-setuptools \
   python3 python3-dev python3-setuptools \
@@ -18,8 +20,8 @@ ADD $pycharm_source /opt/pycharm/installer.tgz
 
 RUN tar --strip-components=1 -xzf installer.tgz && rm installer.tgz
 
- RUN /usr/bin/python2 /opt/pycharm/helpers/pydev/setup_cython.py build_ext --inplace
- RUN /usr/bin/python3 /opt/pycharm/helpers/pydev/setup_cython.py build_ext --inplace
+RUN /usr/bin/python2 /opt/pycharm/helpers/pydev/setup_cython.py build_ext --inplace
+RUN /usr/bin/python3 /opt/pycharm/helpers/pydev/setup_cython.py build_ext --inplace
 
 RUN useradd -ms /bin/bash developer
 USER developer
