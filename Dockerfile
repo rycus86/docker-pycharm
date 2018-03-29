@@ -10,8 +10,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   libfontconfig1 \
   && rm -rf /var/lib/apt/lists/*
 
-ARG pycharm_source=https://download-cf.jetbrains.com/python/pycharm-community-2017.3.4.tar.gz
-ARG pycharm_local_dir=.PyCharmCE2017.3
+ARG pycharm_source=https://download-cf.jetbrains.com/python/pycharm-community-2018.1.tar.gz
+ARG pycharm_local_dir=.PyCharmCE2018.1
 
 RUN mkdir /opt/pycharm
 WORKDIR /opt/pycharm
