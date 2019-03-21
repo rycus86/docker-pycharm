@@ -5,12 +5,12 @@ LABEL maintainer "Viktor Adam <rycus86@gmail.com>"
 RUN apt-get update && apt-get install --no-install-recommends -y \
   python python-dev python-setuptools python-pip \
   python3 python3-dev python3-setuptools python3-pip \
-  gcc git openssh-client \
+  gcc git openssh-client less \
   libxtst-dev libxext-dev libxrender-dev libfreetype6-dev \
-  libfontconfig1 \
+  libfontconfig1 libgtk2.0-0 libxslt1.1 libxxf86vm1 \
   && rm -rf /var/lib/apt/lists/*
 
-ARG pycharm_source=https://download.jetbrains.com/python/pycharm-community-191.6183.9.tar.gz
+ARG pycharm_source=https://download.jetbrains.com/python/pycharm-community-191.6183.50.tar.gz
 ARG pycharm_local_dir=.PyCharmCE2019.1
 
 RUN mkdir /opt/pycharm
