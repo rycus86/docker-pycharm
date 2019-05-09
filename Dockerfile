@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   libfontconfig1 libgtk2.0-0 libxslt1.1 libxxf86vm1 \
   && rm -rf /var/lib/apt/lists/*
 
-ARG pycharm_source=https://download.jetbrains.com/python/pycharm-community-191.7141.11.tar.gz
+ARG pycharm_source=https://download.jetbrains.com/python/pycharm-community-2019.1.2.tar.gz
 ARG pycharm_local_dir=.PyCharmCE2019.1
 
 WORKDIR /opt/pycharm
