@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   && rm -rf /var/lib/apt/lists/* \
   && useradd -ms /bin/bash developer
 
-ARG pycharm_source=https://download.jetbrains.com/python/pycharm-community-2019.2.2.tar.gz
-ARG pycharm_local_dir=.PyCharmCE2019.2
+ARG pycharm_source=https://download.jetbrains.com/python/pycharm-community-193.2956.40.tar.gz
+ARG pycharm_local_dir=.PyCharmCE2019.3
 
 WORKDIR /opt/pycharm
 
