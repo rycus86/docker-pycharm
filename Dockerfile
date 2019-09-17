@@ -2,6 +2,9 @@ FROM debian
 
 LABEL maintainer "Viktor Adam <rycus86@gmail.com>"
 
+ARG PYCHARM_VERSION=2019.2
+ARG PYCHARM_BUILD=2019.2.2
+
 RUN apt-get update && apt-get install --no-install-recommends -y \
   python python-dev python-setuptools python-pip \
   python3 python3-dev python3-setuptools python3-pip \
@@ -11,8 +14,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   && rm -rf /var/lib/apt/lists/* \
   && useradd -ms /bin/bash developer
 
-ARG pycharm_source=https://download.jetbrains.com/python/pycharm-community-2019.2.2.tar.gz
-ARG pycharm_local_dir=.PyCharmCE2019.2
+ARG pycharm_source=https://download.jetbrains.com/python/pycharm-community-${PYCHARM_BUILD}.tar.gz
+ARG pycharm_local_dir=.PyCharmCE${PYCHARM_VERSION}
 
 WORKDIR /opt/pycharm
 
