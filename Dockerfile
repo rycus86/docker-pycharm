@@ -3,7 +3,7 @@ FROM debian
 LABEL maintainer "Viktor Adam <rycus86@gmail.com>"
 
 ARG PYCHARM_VERSION=2019.2
-ARG PYCHARM_BUILD=2019.2.3
+ARG PYCHARM_BUILD=2019.2.4
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
   python python-dev python-setuptools python-pip \
