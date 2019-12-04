@@ -2,8 +2,8 @@ FROM debian
 
 LABEL maintainer "Viktor Adam <rycus86@gmail.com>"
 
-ARG PYCHARM_VERSION=2019.2
-ARG PYCHARM_BUILD=2019.2.5
+ARG PYCHARM_VERSION=2019.3
+ARG PYCHARM_BUILD=2019.3
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
   python python-dev python-setuptools python-pip \
@@ -21,9 +21,7 @@ WORKDIR /opt/pycharm
 
 RUN curl -fsSL $pycharm_source -o /opt/pycharm/installer.tgz \
   && tar --strip-components=1 -xzf installer.tgz \
-  && rm installer.tgz \
-  && /usr/bin/python2 /opt/pycharm/helpers/pydev/setup_cython.py build_ext --inplace \
-  && /usr/bin/python3 /opt/pycharm/helpers/pydev/setup_cython.py build_ext --inplace
+  && rm installer.tgz
 
 USER developer
 ENV HOME /home/developer
