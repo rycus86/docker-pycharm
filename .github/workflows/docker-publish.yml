@@ -1,0 +1,31 @@
+name: Docker
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log into registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Get the current branch name
+        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+        id: vars
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          push: ${{ github.event_name != 'pull_request' && steps.vars.outputs.branch != 'master' }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pycharm:${{ steps.vars.outputs.branch }}
