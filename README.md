@@ -8,7 +8,6 @@ docker run --rm \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v ~/.PyCharm:/home/developer/.PyCharm \
   -v ~/.PyCharm.java:/home/developer/.java \
-  -v ~/.PyCharm.py2:/usr/local/lib/python2.7 \
   -v ~/.PyCharm.py3:/usr/local/lib/python3.7 \
   -v ~/.PyCharm.share:/home/developer/.local/share/JetBrains \
   -v ~/Project:/home/developer/Project \
@@ -20,8 +19,8 @@ Docker Hub Page: https://hub.docker.com/r/rycus86/pycharm/
 
 ### Notes
 
-The IDE will have access to Python 2 and 3 both and to Git as well.
+The IDE will have access to Python 3 and to Git.
 Project folders need to be mounted like `-v ~/Project:/home/developer/Project`.
 The actual name can be anything - I used something random to be able to start multiple instances if needed.
 
-To use `pip` (or `pip3`) either use the terminal in PyCharm or install from the terminal from inside the container like `docker exec -it pycharm-running bash` then install using **pip**.
+To use `pip`, either use the terminal in PyCharm or install from the terminal from inside the container like `docker exec -it pycharm-running bash` then install using **pip**.

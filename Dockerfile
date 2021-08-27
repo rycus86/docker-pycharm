@@ -6,7 +6,6 @@ ARG PYCHARM_VERSION=2021.2
 ARG PYCHARM_BUILD=2021.2.1
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
-  python python-dev python-setuptools python-pip \
   python3 python3-dev python3-setuptools python3-pip \
   gcc git openssh-client less curl \
   libxtst-dev libxext-dev libxrender-dev libfreetype6-dev \
