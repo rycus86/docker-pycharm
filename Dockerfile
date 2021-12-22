@@ -3,7 +3,7 @@ FROM debian
 LABEL maintainer "Viktor Adam <rycus86@gmail.com>"
 
 ARG PYCHARM_VERSION=2021.2
-ARG PYCHARM_BUILD=2021.2.1
+ARG PYCHARM_BUILD=2021.2.4
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
   python3 python3-dev python3-setuptools python3-pip \
