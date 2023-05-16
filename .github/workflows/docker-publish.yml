@@ -23,7 +23,7 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Get the current branch name
@@ -36,4 +36,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' && steps.vars.outputs.branch != 'master' }}
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pycharm:${{ steps.vars.outputs.branch }}
+          tags: ${{ vars.DOCKERHUB_REPOSITORY }}:${{ steps.vars.outputs.branch }}
