@@ -17,6 +17,14 @@ rycus86/pycharm:latest
 
 Docker Hub Page: https://hub.docker.com/r/rycus86/pycharm/
 
+### OS X instructions
+
+1. Install XQuartz from https://www.xquartz.org/releases/
+2. Configure `Allow connections from network clients` in the settings 
+   - Restart the system (needed only once when this is enabled)
+3. Run `xhost +localhost` in a terminal to allow connecting to X11 over the TCP socket
+4. Use `-e DISPLAY=host.docker.internal:0` for passing the `${DISPLAY}` environment
+
 ### Notes
 
 The IDE will have access to Python 3 and to Git.
