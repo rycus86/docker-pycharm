@@ -2,6 +2,9 @@ name: Docker
 
 on: push
 
+env:
+  azul_docker_pycharm_version: 2  # increment this to update the OS packages
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,7 +36,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
+          build-args: |
+            azul_docker_pycharm_version=${{ env.azul_docker_pycharm_version }}
           context: .
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' && steps.vars.outputs.branch != 'master' }}
-          tags: ${{ vars.DOCKERHUB_REPOSITORY }}:${{ steps.vars.outputs.branch }}
+          tags: ${{ vars.DOCKERHUB_REPOSITORY }}:${{ steps.vars.outputs.branch }}-${{ env.azul_docker_pycharm_version }}

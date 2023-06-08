@@ -5,13 +5,16 @@ ARG TARGETARCH
 LABEL maintainer "Viktor Adam <rycus86@gmail.com>"
 LABEL maintainer "Azul Group <azul-group@ucsc.edu>"
 
-ARG azul_docker_pycharm_version=1
+ARG azul_docker_pycharm_version
 
-RUN apt-get update && apt-get install --no-install-recommends -y \
-  python3 python3-dev python3-setuptools python3-pip \
-  gcc git openssh-client less curl \
-  libxtst-dev libxext-dev libxrender-dev libfreetype6-dev \
-  libfontconfig1 libgtk2.0-0 libxslt1.1 libxxf86vm1 \
+RUN \
+  apt-get update \
+  && apt-get upgrade -y \
+  && apt-get install --no-install-recommends -y \
+    python3 python3-dev python3-setuptools python3-pip \
+    gcc git openssh-client less curl \
+    libxtst-dev libxext-dev libxrender-dev libfreetype6-dev \
+    libfontconfig1 libgtk2.0-0 libxslt1.1 libxxf86vm1 \
   && rm -rf /var/lib/apt/lists/* \
   && useradd -ms /bin/bash developer
 
