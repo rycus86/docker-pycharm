@@ -3,7 +3,7 @@ name: Docker
 on: push
 
 env:
-  azul_docker_pycharm_version: 2  # increment this to update the OS packages
+  azul_docker_pycharm_version: 3  # increment this to update the OS packages
 
 jobs:
   build:
