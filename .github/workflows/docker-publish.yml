@@ -40,5 +40,10 @@ jobs:
             azul_docker_pycharm_version=${{ env.azul_docker_pycharm_version }}
           context: .
           platforms: linux/amd64,linux/arm64
-          push: ${{ github.event_name != 'pull_request' && steps.vars.outputs.branch != 'master' }}
+          push: >
+            ${{
+            github.event_name != 'pull_request'
+            && steps.vars.outputs.branch != 'master'
+            && endsWith(steps.vars.outputs.branch, '-PR') != true
+            }}
           tags: ${{ vars.DOCKERHUB_REPOSITORY }}:${{ steps.vars.outputs.branch }}-${{ env.azul_docker_pycharm_version }}
