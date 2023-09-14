@@ -3,7 +3,7 @@ name: Docker
 on: push
 
 env:
-  azul_docker_pycharm_version: 2  # increment this to update the OS packages
+  azul_docker_pycharm_version: 3  # increment this to update the OS packages
 
 jobs:
   build:
@@ -44,6 +44,6 @@ jobs:
             ${{
             github.event_name != 'pull_request'
             && steps.vars.outputs.branch != 'master'
-            && endsWith(steps.vars.outputs.branch, '-PR') != true
+            && !endsWith(steps.vars.outputs.branch, '-PR')
             }}
           tags: ${{ vars.DOCKERHUB_REPOSITORY }}:${{ steps.vars.outputs.branch }}-${{ env.azul_docker_pycharm_version }}
