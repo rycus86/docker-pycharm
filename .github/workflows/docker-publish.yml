@@ -1,9 +1,15 @@
 name: Docker
 
-on: push
+on:
+  push:
+    branches-ignore:
+      - "*-PR"
+      - "master"
+  pull_request:
 
 env:
-  azul_docker_pycharm_version: 4  # increment this to update the OS packages
+  azul_docker_pycharm_version: 5  # increment this to update the OS packages
+  PYCHARM_VERSION: 2023.2.3
 
 jobs:
   build:
@@ -14,36 +20,35 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: network=host
 
       - name: Log into registry
-        if: github.event_name != 'pull_request'
-        uses: docker/login-action@v1
+        if: >
+          github.event_name != 'pull_request'
+          && vars.DOCKERHUB_USERNAME
+          && secrets.DOCKERHUB_PASSWORD
+        uses: docker/login-action@v3
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: Get the current branch name
-        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
-        id: vars
-
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           build-args: |
             azul_docker_pycharm_version=${{ env.azul_docker_pycharm_version }}
+            PYCHARM_VERSION=${{ env.PYCHARM_VERSION }}
           context: .
           platforms: linux/amd64,linux/arm64
-          push: >
-            ${{
-            github.event_name != 'pull_request'
-            && steps.vars.outputs.branch != 'master'
-            && !endsWith(steps.vars.outputs.branch, '-PR')
-            }}
-          tags: ${{ vars.DOCKERHUB_REPOSITORY }}:${{ steps.vars.outputs.branch }}-${{ env.azul_docker_pycharm_version }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ vars.DOCKERHUB_REPOSITORY }}:${{ env.PYCHARM_VERSION }}-${{ env.azul_docker_pycharm_version }}
+          cache-from: type=registry,ref=${{ vars.DOCKERHUB_REPOSITORY }}/buildcache
+          cache-to: type=registry,ref=${{ vars.DOCKERHUB_REPOSITORY }}/buildcache,mode=max

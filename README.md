@@ -24,3 +24,22 @@ Project folders need to be mounted like `-v ~/Project:/home/developer/Project`.
 The actual name can be anything - I used something random to be able to start multiple instances if needed.
 
 To use `pip`, either use the terminal in PyCharm or install from the terminal from inside the container like `docker exec -it pycharm-running bash` then install using **pip**.
+
+### Azul Notes
+
+Changes can be tested locally. You would need `make`, `curl`, Docker Desktop and 
+[act](https://github.com/nektos/act). For example:
+
+```
+brew install act
+act # the first invocation is to interactively configure `act`
+make start_registry
+make images
+# scroll up in terminal output, note image name
+# |   "image.name": "localhost:5000/docker.io/ucscgi/azul-pycharm:2023.2.3-5"
+docker pull localhost:5000/docker.io/ucscgi/azul-pycharm:2023.2.3-5
+# You could now examine the image for vulnerabilities in Docker Desktop and/or
+# test the image in Azul:
+cd ../azul; azul_docker_pycharm_version=2023.2.3-5 azul_docker_registry=localhost:5000/ make format
+make stop_registry
+```
